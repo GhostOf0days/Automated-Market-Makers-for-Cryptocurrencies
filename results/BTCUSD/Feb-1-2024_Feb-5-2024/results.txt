@@ -1,0 +1,26 @@
+Last simulation results:
+
+Final inventory hold:  -35.0
+Last price:  108996.81066472051
+Cash:  4102040.9350693487
+Final wealth:  287152.5618041307
+Max q held:  33.0
+Min q held:  -36.0
+
+Parameters used in simulations:
+
+gamma: 0.100
+k: 1.500
+sigma: 2.000
+T: 1.00
+n steps: 1088975
+Using limited horizon: True
+
+Results over: 100 simulations
+
+Average PnL: 295451.27
+Standard deviation PnL: 7374.84
+
+
+Comments
+Issue with data size and did not display PNL bar graph, had to quite program
