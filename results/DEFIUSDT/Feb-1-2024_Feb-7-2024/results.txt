@@ -1,0 +1,22 @@
+Last simulation results:
+
+Final inventory hold:  -50.0
+Last price:  52172.81183407282
+Cash:  2748066.9461660334
+Final wealth:  139426.35446239263
+Max q held:  25.0
+Min q held:  -51.0
+
+Parameters used in simulations:
+
+gamma: 0.100
+k: 1.500
+sigma: 2.000
+T: 1.00
+n steps: 520741
+Using limited horizon: True
+
+Results over: 100 simulations
+
+Average PnL: 141261.23
+Standard deviation PnL: 4232.27

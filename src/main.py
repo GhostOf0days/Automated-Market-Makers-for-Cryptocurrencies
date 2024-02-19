@@ -21,7 +21,7 @@ n_sim = 100
 
 pnl_sim = numpy.empty((n_sim))
 
-data = pd.read_csv('ETHBUSD-bookTicker-2023-11-04.csv')
+data = pd.read_csv('Cryptocurrency Data CSV File')
 
 #just to check if the data is being read
 #print(df.to_string())
