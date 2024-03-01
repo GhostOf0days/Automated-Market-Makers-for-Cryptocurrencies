@@ -34,7 +34,4 @@ async def replay():
 
     print("finished")
 
-asyncio.run(save_historical_deribit_index_data_to_csv())
-
-
 asyncio.run(replay())
