@@ -21,13 +21,20 @@ async def replay():
         exchange="exchange goes here", # examples: coinbase, binance
         from_date="from date goes here", # example: 2024-02-18
         to_date="to data goes here", # example: 2024-02-25
-        filters=[Channel(name="depth", symbols=["symbol goes here"])] # example: btscusdt
-    )
-
-    async with open(filename, "w") as message_file:
-        # Messages as provided by the exchange's real-time stream
+        filters=[Channel(name="csv file name", symbols=["symbol goes here"])], # example csv file: bitcoin_price_index.csv. example symbol: btscusdt.
+        )
+    
+    with open("./csv_file_name.csv", mode="w") as csv_file: # example: ./bitcoin_price_index.cdv
+        fieldnames = ["symbol", "price", "timestamp"]
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
         async for local_timestamp, message in messages:
-            message_file.write(json.dumps(message) + "\n")
+            data = message["params"]["data"]
+            writer.writerow({"symbol": data["index_name"], "price": data["price"], "timestamp": data["timestamp"]})
+
+    print("finished")
+
+asyncio.run(save_historical_deribit_index_data_to_csv())
 
 
 asyncio.run(replay())
