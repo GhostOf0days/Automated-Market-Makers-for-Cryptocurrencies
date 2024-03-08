@@ -4,3 +4,4 @@ venv/
 .csv
 .DS_Store
 ./data/tardisCred.json
+.data/**/*.npz
