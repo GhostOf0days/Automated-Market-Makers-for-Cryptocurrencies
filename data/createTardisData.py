@@ -33,6 +33,15 @@ if __name__ == "__main__":
         )
     incL2Files = getFileNames("./datasets", 'incremental_book_L2')
     tradeFiles = getFileNames("./datasets", 'trades')
+    '''
+    coinNames = [
+    "BTCUSDT", "ETHUSDT", "BNBUSDT", "ADAUSDT",
+    "XRPUSDT", "SOLUSDT", "DOTUSDT", "LTCUSDT",
+    "LINKUSDT", "DOGEUSDT", "MATICUSDT", "UNIUSDT",
+    "TRXUSDT", "XLMUSDT", "BCHUSDT", "VETUSDT",
+    "FILUSDT", "AAVEUSDT", "EOSUSDT", "XTZUSDT",
+    ]
+    '''
     coinNames = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]
     dates = getDatesFromFiles(incL2Files)
     for coin in coinNames:

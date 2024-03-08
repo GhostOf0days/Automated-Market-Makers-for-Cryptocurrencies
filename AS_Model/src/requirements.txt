@@ -7,3 +7,5 @@ python-dateutil
 scipy
 six
 pandas
+hftbacktest
+tardis-client
