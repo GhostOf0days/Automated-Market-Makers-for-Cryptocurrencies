@@ -3,6 +3,7 @@ import re
 from hftbacktest.data.utils import tardis
 import glob
 import numpy as np
+import os
 
 def readCredentials(jsonPath:str) -> pd.DataFrame:
     """we use the tardis as data source, it is a paid resource. Please feel free to use it, but don't share it with others
@@ -44,9 +45,12 @@ def getDatesFromFiles(allFiles:list)->list:
         dates.add(date)
     return list(dates)
 
-def getWrtPath(coin:str,date:str,header:str)->str:
-
-    return header + "/"+coin+"_"+date+".npz"
+def getWrtPath(coin:str,date:str,base_dir:str)->str:
+    #path check
+    #print("path: ", header + "/"+coin+"_"+date+".npz")
+    coin_dir = os.path.join(base_dir, coin)
+    os.makedirs(coin_dir, exist_ok=True)
+    return os.path.join(coin_dir, f"{coin}_{date}.npz")
 
 def getFileNameByCoinAndDate(fileNames:list,coin:str,date:str)->str:
     for file in fileNames:
