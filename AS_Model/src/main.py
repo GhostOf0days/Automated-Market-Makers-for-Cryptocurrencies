@@ -21,7 +21,18 @@ n_sim = 100
 
 pnl_sim = numpy.empty((n_sim))
 
-data = pd.read_csv('Cryptocurrency Data CSV File')
+file = "../../data/datasets/CRYPTO_COIN/CRYPTO_FILE.npz"
+best_bid_price = list()
+best_ask_price = list()
+best_ask_qty = list()
+best_bid_qty = list()
+data_create(file, best_bid_price, best_ask_price, best_bid_qty, best_ask_qty)
+print("Best_bid_price: ", best_bid_price)
+data = pd.DataFrame({"best_bid_price":best_bid_price,
+                     "best_ask_price":best_ask_price,
+                     "best_ask_qty":best_ask_qty,
+                     "best_bid_qty":best_bid_qty,
+                     "mid_price":[0]*len(best_ask_price)})
 
 #just to check if the data is being read
 #print(df.to_string())
