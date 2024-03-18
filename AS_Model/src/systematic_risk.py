@@ -31,10 +31,10 @@ def calculate_systemic_risk(book_data, trade_data):
     risk_model = create_factor_risk_model(instrument_returns, risk_factors)
 
     # Calculate factor exposures and covariance matrix
-    factor_exposure = risk_model.calculate_factor_exposures()
+    factor_exposures = risk_model.calculate_factor_exposures()
     covariance_matrix = risk_model.calculate_covariance_matrix()
 
-    systemic_risk_scores = calculate_systemic_risk_scores(factor_exposure, covariance_matrix)
+    systemic_risk_scores = calculate_systemic_risk_scores(factor_exposures, covariance_matrix)
 
     return systemic_risk_scores
 
