@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from fpm_risk_model import RollingFactorRiskModel
 from fpm_risk_model.statistical import PCA
 from fpm_risk_model import RollingCovarianceEstimator
 
@@ -29,21 +30,16 @@ def calculate_systemic_risk(book_data, trade_data):
 
     instrument_returns = book_data['mid_price'].pct_change()
 
-    risk_model = PCA(n_components=5)
-    risk_model.fit(X=instrument_returns)
+    pca = PCA(n_components=5)
+    pca.fit(instrument_returns)
 
-    factor_exposures = risk_model.factor_exposures_
+    factor_exposures = pca.factor_exposures
 
     # Transform the risk model with instrument returns
-    risk_model.transform(y=instrument_returns)
+    rolling_pca = RollingFactorRiskModel(model=pca, window=252)
+    rolling_pca.fit(instrument_returns)
 
-    # Calculate covariance matrix using shrinkage estimator
-    covariance_estimator = RollingCovarianceEstimator(
-        risk_model,
-        shrinkage_method="ledoit_wolf_constant_variance",
-        delta=0.2
-    )
-    covariance_matrix = covariance_estimator.fit(risk_model.factor_returns_).covariance_
+    covariance_matrix = rolling_pca.get("2024-01-13").cov()
 
     # Implement systemic risk calculation logic
     systemic_risk_scores = calculate_systemic_risk_scores(factor_exposures, covariance_matrix)
@@ -51,6 +47,6 @@ def calculate_systemic_risk(book_data, trade_data):
     return systemic_risk_scores
 
 def calculate_systemic_risk_scores(factor_exposures, covariance_matrix):
-    systemic_risk_scores = factor_exposures.dot(np.diag(covariance_matrix))
+    systemic_risk_scores = factor_exposures @ (np.diag(covariance_matrix))
 
     return systemic_risk_scores
