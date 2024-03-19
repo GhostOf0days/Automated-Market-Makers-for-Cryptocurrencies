@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-
-from fpm_risk_model.statistics import PCA
-from fpm_risk_model.covariance import ShrunkCovariance
+from fpm_risk_model.statistical import PCA
+from fpm_risk_model import RollingCovarianceEstimator
 
 def calculate_systemic_risk(book_data, trade_data):
     # Preprocess order book data
@@ -30,7 +29,6 @@ def calculate_systemic_risk(book_data, trade_data):
 
     instrument_returns = book_data['mid_price'].pct_change()
 
-    # Create a PCA risk model
     risk_model = PCA(n_components=5)
     risk_model.fit(X=instrument_returns)
 
@@ -40,7 +38,11 @@ def calculate_systemic_risk(book_data, trade_data):
     risk_model.transform(y=instrument_returns)
 
     # Calculate covariance matrix using shrinkage estimator
-    covariance_estimator = ShrunkCovariance(shrinkage_target='diagonal')
+    covariance_estimator = RollingCovarianceEstimator(
+        risk_model,
+        shrinkage_method="ledoit_wolf_constant_variance",
+        delta=0.2
+    )
     covariance_matrix = covariance_estimator.fit(risk_model.factor_returns_).covariance_
 
     # Implement systemic risk calculation logic
