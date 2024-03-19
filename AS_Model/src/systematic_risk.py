@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
-from fpm_risk_model import create_factor_risk_model
+
+from fpm_risk_model.statistics import PCA
+from fpm_risk_model.covariance import ShrunkCovariance
 
 def calculate_systemic_risk(book_data, trade_data):
     # Preprocess order book data
@@ -24,16 +26,24 @@ def calculate_systemic_risk(book_data, trade_data):
     book_data['r_1_0'] = book_data['mid_price'].pct_change(1)
     book_data['r_2_0'] = book_data['mid_price'].pct_change(2)
 
-    # Define risk factors
     risk_factors = ['MCAP', 'PRC', 'MAXDPRC', 'AGE', 'r_1_0', 'r_2_0']
 
     instrument_returns = book_data['mid_price'].pct_change()
-    risk_model = create_factor_risk_model(instrument_returns, risk_factors)
 
-    # Calculate factor exposures and covariance matrix
-    factor_exposures = risk_model.calculate_factor_exposures()
-    covariance_matrix = risk_model.calculate_covariance_matrix()
+    # Create a PCA risk model
+    risk_model = PCA(n_components=5)
+    risk_model.fit(X=instrument_returns)
 
+    factor_exposures = risk_model.factor_exposures_
+
+    # Transform the risk model with instrument returns
+    risk_model.transform(y=instrument_returns)
+
+    # Calculate covariance matrix using shrinkage estimator
+    covariance_estimator = ShrunkCovariance(shrinkage_target='diagonal')
+    covariance_matrix = covariance_estimator.fit(risk_model.factor_returns_).covariance_
+
+    # Implement systemic risk calculation logic
     systemic_risk_scores = calculate_systemic_risk_scores(factor_exposures, covariance_matrix)
 
     return systemic_risk_scores
