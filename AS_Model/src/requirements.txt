@@ -9,3 +9,4 @@ six
 pandas
 hftbacktest
 tardis-client
+factor-pricing-model-risk-model
