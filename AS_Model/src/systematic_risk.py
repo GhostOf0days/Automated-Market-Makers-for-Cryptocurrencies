@@ -6,7 +6,6 @@ from fpm_risk_model import RollingCovarianceEstimator
 
 def calculate_systemic_risk(book_data, trade_data):
     # Preprocess order book data
-    book_data = book_data.sort_values(['timestamp'])
     book_data['mid_price'] = (book_data['best_ask'] + book_data['best_bid']) / 2
 
     # Preprocess trade data
