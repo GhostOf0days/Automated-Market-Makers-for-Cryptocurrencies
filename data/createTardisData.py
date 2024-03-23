@@ -4,10 +4,10 @@ from tardis_dev import datasets, get_exchange_details
 import json
 import csv
 from dataUtils import *
-from data import JSONPATH
 
-tardisKey = readCredentials(JSONPATH)
-DOWNLOADED = True
+tardisKey = readCredentials('./tardisCred.json')
+
+DOWNLOADED = False
 if __name__ == "__main__":
     if not DOWNLOADED:
         datasets.download(
@@ -17,19 +17,15 @@ if __name__ == "__main__":
             # or get those values from 'deribit_details["datasets"]["symbols][]["dataTypes"] dict above
             data_types=["incremental_book_L2", "trades"],
             # change date ranges as needed to fetch full month or year for example
-            from_date="2024-01-02",
+            from_date="2024-01-03",
             # to date is non inclusive
-            to_date="2024-01-02",
+            to_date="2024-01-03",
             # accepted values: 'datasets.symbols[].id' field in https://api.tardis.dev/v1/exchanges/deribit
-            symbols=["BTCUSDT", "ETHUSDT","BNBUSDT"],
+            symbols=["BTCUSDT", "ETHUSDT", "BNBUSDT","LTCUSDT","XRPUSDT"],
             # (optional) your API key to get access to non sample data as well
-            api_key=tardisKey,
             # (optional) path where data will be downloaded into, default dir is './datasets'
             download_dir="./datasets",
-            # (optional) - one can customize downloaded file name/path (flat dir strucure, or nested etc) - by default function 'default_file_name' is used
-            # get_filename=default_file_name,
-            # (optional) file_name_nested will download data to nested directory structure (split by exchange and data type)
-            # get_filename=file_name_nested,
+            api_key=tardisKey,
         )
     incL2Files = getFileNames("./datasets", 'incremental_book_L2')
     tradeFiles = getFileNames("./datasets", 'trades')
@@ -42,7 +38,7 @@ if __name__ == "__main__":
     "FILUSDT", "AAVEUSDT", "EOSUSDT", "XTZUSDT",
     ]
     '''
-    coinNames = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]
+    coinNames = ["BTCUSDT", "ETHUSDT", "BNBUSDT","LTCUSDT","XRPUSDT"]
     dates = getDatesFromFiles(incL2Files)
     for coin in coinNames:
         for date in dates:
