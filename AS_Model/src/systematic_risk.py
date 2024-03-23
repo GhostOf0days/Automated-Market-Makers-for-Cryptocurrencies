@@ -39,7 +39,7 @@ def calculate_systemic_risk(book_data, trade_data):
     rolling_pca = RollingFactorRiskModel(model=pca, window=252)
     rolling_pca.fit(instrument_returns)
 
-    covariance_matrix = rolling_pca.get("2024-01-13").cov()
+    covariance_matrix = rolling_pca.get("YYYY-MM-DD").cov()
 
     # Implement systemic risk calculation logic
     systemic_risk_scores = calculate_systemic_risk_scores(factor_exposures, covariance_matrix)
