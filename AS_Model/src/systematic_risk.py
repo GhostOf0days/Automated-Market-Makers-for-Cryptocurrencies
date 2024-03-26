@@ -6,6 +6,7 @@ from fpm_risk_model import RollingCovarianceEstimator
 
 def calculate_systemic_risk(book_data, trade_data):
     # Preprocess order book data
+    book_data = book_data.sort_values(['timestamp'])
     book_data['mid_price'] = (book_data['best_ask'] + book_data['best_bid']) / 2
 
     # Preprocess trade data
@@ -38,7 +39,7 @@ def calculate_systemic_risk(book_data, trade_data):
     rolling_pca = RollingFactorRiskModel(model=pca, window=252)
     rolling_pca.fit(instrument_returns)
 
-    covariance_matrix = rolling_pca.get("YYYY-MM-DD").cov()
+    covariance_matrix = rolling_pca.get("2024-01-13").cov()
 
     # Implement systemic risk calculation logic
     systemic_risk_scores = calculate_systemic_risk_scores(factor_exposures, covariance_matrix)
