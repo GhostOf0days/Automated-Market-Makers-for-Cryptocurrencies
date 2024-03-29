@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-STOREPath =  "/Users/maoguan/workspace/RL-AMM/data/factorData/"
+STOREPath =  "..factorData/"
 
 
 class riskFactor(object):
