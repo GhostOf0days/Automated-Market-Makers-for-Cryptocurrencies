@@ -3,5 +3,7 @@ __pycache__/
 venv/
 .csv
 .DS_Store
-.data/tardisCred.json
-.data/**/*.npz
+data/tardisCred.json
+data/**/*.npz
+data/factorData/
+data/lakeAPIData/
