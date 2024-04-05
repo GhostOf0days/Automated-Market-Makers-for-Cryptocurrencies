@@ -10,10 +10,10 @@ with open('../data/features_dict.pickle', 'rb') as f:
 
 # Load factor exposure dataframes
 # STILL HAVE TO ADD EXPOSURES FROM NOTEBOOK AS CSV FILES
-BTCFactorExposure = pd.read_csv('BTCFactorExposure.csv')
-BNBFactorExposure = pd.read_csv('BNBFactorExposure.csv')
-ETHFactorExposure = pd.read_csv('ETHFactorExposure.csv')
-XRPFactorExposure = pd.read_csv('XRPFactorExposure.csv')
+BTCFactorExposure = pd.read_csv('../data/factorData/exposures/TCFactorExposure.csv')
+BNBFactorExposure = pd.read_csv('../data/factorData/exposures/BNBFactorExposure.csv')
+ETHFactorExposure = pd.read_csv('../data/factorData/exposures/ETHFactorExposure.csv')
+XRPFactorExposure = pd.read_csv('../data/factorData/exposures/XRPFactorExposure.csv')
 
 # Convert timestamp columns to datetime
 BTCFactorExposure['origin_time'] = pd.to_datetime(BTCFactorExposure['origin_time'])
