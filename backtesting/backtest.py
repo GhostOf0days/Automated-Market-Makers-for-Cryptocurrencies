@@ -1,5 +1,7 @@
 # STILL HAVE TO FIX
 import pickle
+import sys
+from simulator.simulator import Sim
 import pandas as pd
 
 execution_latency = 10_000_000  # 10 ms
