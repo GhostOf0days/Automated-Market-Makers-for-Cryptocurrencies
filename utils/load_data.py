@@ -41,7 +41,7 @@ def merge_books_and_trades(books: List[OrderbookSnapshotUpdate], trades: List[An
 
 def load_md_from_file(path: str, nrows=10000, btc=True) -> List[MdUpdate]:
     '''
-        This function downloads orderbooks ans trades and merges them
+        This function downloads orderbooks and trades and merges them
     '''
     books = load_books(path, nrows, btc)
     trades = load_trades(path, nrows)
